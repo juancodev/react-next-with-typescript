@@ -1,8 +1,14 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import { RandomFox } from "../src/components/RandomFox";
 
-const inter = Inter({ subsets: ["latin"] });
+const randomNumber = (): number => {
+  let valueFinal: number = 123;
+
+  const resultRandom: number = Math.floor(Math.random() * valueFinal);
+  return resultRandom;
+};
+
+const image: string = `https://randomfox.ca/images/${randomNumber()}.jpg`;
 
 export default function Home() {
   return (
@@ -15,7 +21,7 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        <RandomFox />
+        <RandomFox image={image} />
       </main>
     </>
   );
