@@ -12,7 +12,13 @@ export const RandomFox = (): JSX.Element => {
   const image: string = `https://randomfox.ca/images/${randomNumber()}.jpg`;
 
   return (
-    <Image src={image} alt="" width={320} height={320} className={"rounded"} />
+    <Image
+      src={image}
+      alt="Fox Image"
+      width={320}
+      height={320}
+      className={"rounded"}
+    />
   );
 };
 
