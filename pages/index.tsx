@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import { RandomFox } from "../src/components/RandomFox";
+import { v4 as uuid } from "uuid";
 
 const randomNumber = (): number => {
   let valueFinal: number = 123;
@@ -9,13 +10,15 @@ const randomNumber = (): number => {
   return resultRandom;
 };
 
+type ImageItems = { id: string; url: string };
+
 export default function Home() {
   // const [images, setImages] = useState<string[]>([]); other
-  const [images, setImages] = useState<Array<string>>([
-    `https://randomfox.ca/images/${randomNumber()}.jpg`,
-    `https://randomfox.ca/images/${randomNumber()}.jpg`,
-    `https://randomfox.ca/images/${randomNumber()}.jpg`,
-    `https://randomfox.ca/images/${randomNumber()}.jpg`,
+  const [images, setImages] = useState<Array<ImageItems>>([
+    { id: uuid(), url: `https://randomfox.ca/images/${randomNumber()}.jpg` },
+    { id: uuid(), url: `https://randomfox.ca/images/${randomNumber()}.jpg` },
+    { id: uuid(), url: `https://randomfox.ca/images/${randomNumber()}.jpg` },
+    { id: uuid(), url: `https://randomfox.ca/images/${randomNumber()}.jpg` },
   ]);
 
   return (
@@ -28,9 +31,9 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        {images.map((image, index) => (
-          <div key={index} className="p-4">
-            <RandomFox image={image} />
+        {images.map(({ id, url }) => (
+          <div key={id} className="p-4">
+            <RandomFox image={url} />
           </div>
         ))}
       </main>
