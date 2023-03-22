@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { MouseEventHandler } from "react";
 import Head from "next/head";
 import { RandomFox } from "../src/components/RandomFox";
 import { v4 as uuid } from "uuid";
@@ -14,12 +15,16 @@ type ImageItems = { id: string; url: string };
 
 export default function Home() {
   // const [images, setImages] = useState<string[]>([]); other
-  const [images, setImages] = useState<Array<ImageItems>>([
-    { id: uuid(), url: `https://randomfox.ca/images/${randomNumber()}.jpg` },
-    { id: uuid(), url: `https://randomfox.ca/images/${randomNumber()}.jpg` },
-    { id: uuid(), url: `https://randomfox.ca/images/${randomNumber()}.jpg` },
-    { id: uuid(), url: `https://randomfox.ca/images/${randomNumber()}.jpg` },
-  ]);
+  const [images, setImages] = useState<Array<ImageItems>>([]);
+
+  const addNewFox: MouseEventHandler<HTMLButtonElement> = (event) => {
+    const newImageItem: ImageItems = {
+      id: uuid(),
+      url: `https://randomfox.ca/images/${randomNumber()}.jpg`,
+    };
+
+    setImages([...images, newImageItem]);
+  };
 
   return (
     <>
@@ -31,6 +36,7 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        <button onClick={addNewFox}>Add new Fox</button>
         {images.map(({ id, url }) => (
           <div key={id} className="p-4">
             <RandomFox image={url} />
