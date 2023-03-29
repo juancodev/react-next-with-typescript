@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { MouseEventHandler } from "react";
 import Head from "next/head";
-import { RandomFox } from "../src/components/RandomFox";
+import { LazyImage } from "../src/components/LazyImage";
 import { v4 as uuid } from "uuid";
 
 const randomNumber = (): number => {
@@ -39,7 +39,12 @@ export default function Home() {
         <button onClick={addNewFox}>Add new Fox</button>
         {images.map(({ id, url }) => (
           <div key={id} className="p-4">
-            <RandomFox image={url} />
+            <LazyImage
+              src={url}
+              width={320}
+              height={320}
+              className={"rounded bg-gray-300"}
+            />
           </div>
         ))}
       </main>

@@ -1,14 +1,24 @@
 // import type { FunctionComponent, FC } from "react";
 import Image from "next/image";
+import type { ImgHTMLAttributes } from "react";
 import { useRef, useEffect, useState } from "react";
 
-type Props = {
-  image: string;
+type PlaceholderValue = "blur" | "empty";
+
+type LazyImageProps = {
+  src: string;
+  width: number;
+  height: number;
+  placeholder?: PlaceholderValue;
 };
 
-export const RandomFox = ({ image }: Props): JSX.Element => {
+type ImageNative = ImgHTMLAttributes<HTMLImageElement>;
+
+type Props = LazyImageProps & ImageNative;
+
+export const LazyImage = ({ src, ...imgProps }: Props): JSX.Element => {
   const node = useRef<HTMLImageElement>(null);
-  const [src, setSrc] = useState(
+  const [currentSrc, setCurrentSrc] = useState(
     "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
   );
 
@@ -18,7 +28,7 @@ export const RandomFox = ({ image }: Props): JSX.Element => {
       entries.forEach((entry) => {
         // onIntersection
         if (entry.isIntersecting) {
-          setSrc(image);
+          setCurrentSrc(src);
         }
       });
     });
@@ -32,18 +42,9 @@ export const RandomFox = ({ image }: Props): JSX.Element => {
     return () => {
       observer.disconnect();
     };
-  }, [image]);
+  }, [src]);
 
-  return (
-    <Image
-      src={src}
-      ref={node}
-      alt="Fox Image"
-      width={320}
-      height={320}
-      className={"rounded bg-gray-300"}
-    />
-  );
+  return <Image src={currentSrc} ref={node} alt="Fox Image" {...imgProps} />;
 };
 
 // Helper of React
