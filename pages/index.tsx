@@ -11,14 +11,12 @@ const randomNumber = (): number => {
   return resultRandom;
 };
 
-type ImageItems = { id: string; url: string };
-
 export default function Home() {
   // const [images, setImages] = useState<string[]>([]); other
-  const [images, setImages] = useState<Array<ImageItems>>([]);
+  const [images, setImages] = useState<Array<IFoxImageItems>>([]);
 
   const addNewFox: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const newImageItem: ImageItems = {
+    const newImageItem: IFoxImageItems = {
       id: uuid(),
       url: `https://randomfox.ca/images/${randomNumber()}.jpg`,
     };
