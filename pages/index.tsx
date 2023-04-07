@@ -5,6 +5,7 @@ import { LazyImage } from "../src/components/LazyImage";
 import { v4 as uuid } from "uuid";
 import PageContent from "@/src/components/PageContent";
 import ThemeComponent from "@/src/components/ThemeComponent";
+import type { Dispatch } from "react";
 
 const randomNumber = (): number => {
   let valueFinal: number = 123;
@@ -13,7 +14,8 @@ const randomNumber = (): number => {
   return resultRandom;
 };
 
-export default function Home() {
+export default function Home(): JSX.Element {
+  const [darkMode, setDarkMode] = useState<boolean>(false);
   // const [images, setImages] = useState<string[]>([]); other
   const [images, setImages] = useState<Array<IFoxImageItems>>([]);
 
@@ -37,9 +39,13 @@ export default function Home() {
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦊</text></svg>"
         />
       </Head>
-      <main className="container mx-auto p-4 flex flex-col items-center dark:bg-slate-800">
-        <ThemeComponent />
-        <PageContent />
+      <main
+        className={`container ${
+          darkMode && "dark"
+        } h-full mx-auto p-4 flex flex-col items-center dark:bg-slate-800`}
+      >
+        <ThemeComponent darkMode={darkMode} setDarkMode={setDarkMode} />
+        <PageContent darkMode={darkMode} />
         <button onClick={addNewFox}>Add new Fox</button>
         <div className="flex flex-wrap justify-center">
           {images.map(({ id, url }) => (

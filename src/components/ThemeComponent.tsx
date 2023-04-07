@@ -1,9 +1,25 @@
 import React from "react";
+import type { ChangeEventHandler } from "react";
 
-const ThemeComponent = (): JSX.Element => {
+type Props = {
+  darkMode: boolean | undefined;
+  setDarkMode: (mode: boolean) => boolean | void;
+};
+
+const ThemeComponent = ({ darkMode, setDarkMode }: Props): JSX.Element => {
+  const themeMode: ChangeEventHandler<HTMLInputElement> = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <div className="toggleWrapper">
-      <input type="checkbox" className="dn" id="dn" />
+      <input
+        type="checkbox"
+        className="dn"
+        id="dn"
+        checked={darkMode === true}
+        onChange={themeMode}
+      />
       <label htmlFor="dn" className="toggle">
         <span className="toggle__handler">
           <span className="crater crater--1"></span>

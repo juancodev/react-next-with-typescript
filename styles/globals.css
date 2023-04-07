@@ -38,12 +38,16 @@ button:active {
 
 /*  ThemeComponents */
 
+.dark {
+  background-color: #1E293B;
+}
+
 .toggleWrapper {
   position: absolute;
   top: 5%;
-  right: -27%;
+  right: -4%;
   overflow: hidden;
-  padding: 0 200px;
+  padding: 0 60px;
   transform: translate3d(-50%, -50%, 0);
   color: #ffcf96;
 }
@@ -241,4 +245,11 @@ input:checked + .toggle .star--5 {
 
 input:checked + .toggle .star--6 {
   transition: all 300ms 400ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+@media (max-width: 850px) {
+  .toggleWrapper{
+    padding: 0px 8px;
+    right: -6%;
+  }
 }
